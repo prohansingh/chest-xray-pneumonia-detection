@@ -7,7 +7,9 @@ import numpy as np
 
 @st.cache_resource
 def load_model():
-    model = tf.keras.models.load_model("model/xray_model.hdf5")
+    model = tf.keras.models.load_model(
+        "model/xray_model.hdf5",
+         compile=False)
     return model
 
 with st.spinner('Model is being loaded..'):
