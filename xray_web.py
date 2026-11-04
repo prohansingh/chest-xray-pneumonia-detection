@@ -38,12 +38,24 @@ if file is None:
     st.text("Please upload an image file")
 else:
     image = Image.open(file)
-    st.image(image, use_column_width=True)
+    st.image(image, width="stretch")
     predictions = import_and_predict(image, model)
-    score = tf.nn.softmax(predictions[0])
-    st.write(predictions)
-    st.write(score)
-    print(
-        "This image most likely belongs to {} with a {:.2f} percent confidence."
-        .format(class_names[np.argmax(score)], 100 * np.max(score))
-    )
+
+    score = tf.nn.softmax(predictions[0]).numpy()
+
+    class_names = ['NORMAL', 'PNEUMONIA']
+
+    # Display prediction scores with class names
+    st.write("### Prediction Scores")
+
+    for i in range(len(class_names)):
+        st.write(f"{class_names[i]} ({i}): {score[i]:.4f}")
+
+    # Get predicted class
+    predicted_class = np.argmax(score)
+
+    # Display final result
+    if predicted_class == 0:
+        st.success("Result: NORMAL")
+    else:
+        st.error("Result: PNEUMONIA DETECTED")
