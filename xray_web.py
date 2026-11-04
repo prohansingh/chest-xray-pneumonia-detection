@@ -22,7 +22,7 @@ st.write("""
 
 file = st.file_uploader("Please upload a chest scan file", type=["jpg","jpeg", "png"])
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
+#st.set_option('deprecation.showfileUploaderEncoding', False)
 
 def import_and_predict(image_data, model):
     size = (180, 180)
