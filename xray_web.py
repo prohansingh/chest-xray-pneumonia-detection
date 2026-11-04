@@ -26,7 +26,7 @@ file = st.file_uploader("Please upload a chest scan file", type=["jpg","jpeg", "
 
 def import_and_predict(image_data, model):
     size = (180, 180)
-    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
     image = np.asarray(image)
     img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # img_resize = (cv2.resize(img, dsize=(75, 75),    interpolation=cv2.INTER_CUBIC))/255.
